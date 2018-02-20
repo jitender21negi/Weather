@@ -1,0 +1,56 @@
+<div class="jumbotron text-center" style="background: #FF6F00; color:#fff;margin-bottom: 0px;">
+    <h1>Current weather and forecasts in your city</h1>
+  </div>
+<div class="container">
+     
+        <div class="col-sm-4">
+         <h3>Weather in City, GB</h3>
+        </div>
+        <div class="col-sm-8 text-center">
+          <h3>Weather and forecasts in City, GB</h3>
+        </div>  
+     
+</div>    
+
+<div class="container">
+
+    <div class="col-sm-4">
+      <h2 style="margin: 0px;color:blue"><strong>{{myData.temp}}</strong></h2>
+      <table class="table table-bordered">
+          <tbody>
+          <tr>
+            <td><strong>Min Temp</strong></td>
+            <td>{{myData.temp_min}}</td>
+          </tr>
+          <tr>
+          <td>Max Temp</td>
+          <td>{{myData.temp_max}}</td>
+          </tr>
+          <tr>
+            <td>Pressure</td>
+            <td>{{myData.pressure}}</td>
+          </tr>
+          <tr>
+            <td>Humidity</td>
+            <td>{{myData.humidity}} %</td>
+          </tr>
+           
+          <tr>
+            <td>Sunrise</td>
+            <td>{{myDataSys}}</td>
+          </tr>
+          <tr>
+              <td>Sunset</td>
+              <td>{{myDataSysSunset}}</td>
+            </tr>   
+          </tbody>
+          </table>
+         
+    </div>
+  <div class="col-sm-8"> 
+    <div *ngIf="chart">
+      <canvas id="canvas">{{ chart }}</canvas>
+    </div>
+  </div>
+
+</div>
