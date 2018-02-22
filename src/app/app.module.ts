@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { WeatherService } from './weather.service';
 
@@ -20,6 +21,7 @@ const routes: Routes = [
     WeatherComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,    
     RouterModule.forRoot(routes, { useHash: false }),
     HttpClientModule

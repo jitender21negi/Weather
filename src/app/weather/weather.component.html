@@ -1,30 +1,43 @@
-<div class="jumbotron text-center" style="background: #FF6F00; color:#fff;margin-bottom: 0px;">
-  <h1>Current weather and forecasts in your city</h1>
-</div>
-<div class="container">
+<div class="jumbotron text-center" style="background: #00BFFF; color:#fff;margin-bottom: 0px;     padding: 24px 0px;">
+  <div class="container">
+    <div class="col-sm-12">
 
+      <h1 style="font-size:30px;">
+        <i class="fa fa-cloud" style="font-size:40px;color:#fff;"></i> Current weather and forecasts in your city
+      </h1>
+    </div>
+    <div class="col-sm-4 col-sm-offset-4">
+      <select id="Id" class="form-control" [(ngModel)]="list.name" (change)="showWeather(list.name);">  
+        <option *ngFor="let k of list" [ngValue]="k.name">{{k.name}}</option>
+   </select>
+   <p class="pagyt {{list.name? 'hide':''}}" style=" font-size: 14px;position: absolute;top: 7px;color: #777;left: 26px;">
+     Select The City
+  </p>
+    </div>
+  </div>
+</div>
+<div class="flude-container" class="pagyt {{list.name? 'show':''}}" style="display:none">
+<div class="container">
   <div class="col-sm-4">
-    <h3>Weather in City, {{name}}</h3>
+    <h4 style="font-weight: bold;padding-top: 16px; color:#00BFFF">Weather in City, {{name}}</h4>
   </div>
   <div class="col-sm-8 text-center">
-    <h3>Weather and forecasts in City, {{cityName}}</h3>
+    <h3 style="color:#00BFFF">Weather and forecasts in City, {{cityName}}</h3>
   </div>
-
 </div>
-
 <div class="container">
-
   <div class="col-sm-4">
-    <h2 style="margin: 0px;color:blue"><strong>{{myData.temp}}°F</strong></h2>
+    <h2 style="margin: 0px;color:#067DA5">
+        <i class="fa fa-cloud" style="font-size:30px;color:#067DA5;"></i> <strong>{{myData.temp-273.15 | number : '1.2-2'}}°C</strong></h2>
     <table class="table table-bordered">
       <tbody>
         <tr>
           <td>Min Temp</td>
-          <td>{{myData.temp_min}}</td>
+          <td>{{myData.temp_min-273.15 | number : '1.2-2'}}°C</td>
         </tr>
         <tr>
           <td>Max Temp</td>
-          <td>{{myData.temp_max}}</td>
+          <td>{{myData.temp_max-273.15 | number : '1.2-2'}}°C</td>
         </tr>
         <tr>
           <td>Pressure</td>
@@ -45,12 +58,11 @@
         </tr>
       </tbody>
     </table>
-
   </div>
   <div class="col-sm-8">
     <div *ngIf="chart">
       <canvas id="canvas">{{ chart }}</canvas>
     </div>
   </div>
-
+</div>
 </div>

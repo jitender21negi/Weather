@@ -3,28 +3,50 @@ import { WeatherService } from '../weather.service';
 import { Chart } from 'chart.js';
 
 @Component({
-  selector: 'app-weather',
+  selector: "[app-weather],[app-drop-down]",
   templateUrl: './weather.component.html',
   styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent implements OnInit {
-
   chart = [];
   myData: any = [];
   myDataSys: any = [];
   myDataSysSunset: any = [];
-  name:any;
-  cityName:any;
+  name: any;
+  cityName: any;
+  list: any = [
+    { id: 0, name: 'New York' },
+    { id: 1, name: 'Texas' },
+    { id: 2, name: 'Highlands County' },
+    { id: 3, name: 'Bedford' },
+    { id: 4, name: 'Los Angeles County' },
+    { id: 5, name: 'Sprite' },
+    { id: 6, name: 'Texas' },
+    { id: 7, name: 'Illinois' },
+    { id: 8, name: 'Grainfield' },
+    { id: 9, name: 'Miami County' },
+    { id: 10, name: 'Indiana' },
+    { id: 11, name: 'Wellington' },
+    { id: 12, name: 'Uniontown' },
+    { id: 13, name: 'City and Borough of Birmingham' },
+    { id: 14, name: 'Edgbaston' }
+  ];
+  
 
   constructor(private _weather: WeatherService) { }
 
-  ngOnInit() {
-    this._weather.dailyForecast()
+  showWeather(city: string) {
+    this.dailyForCast(city)
+    this.currentForCast(city);
+  }
+
+  dailyForCast(name) {
+    this._weather.dailyForecast(name)
       .subscribe(res => {
         let temp_max = res['list'].map(res => res.main.temp_max);
         let temp_min = res['list'].map(res => res.main.temp_min);
         let alldates = res['list'].map(res => res.dt)
-        this.cityName=res['city'].name;
+        this.cityName = res['city'].name;
 
         let weatherDates = []
 
@@ -64,15 +86,17 @@ export class WeatherComponent implements OnInit {
           weatherDates.push(jsdate.toLocaleTimeString('en', { year: 'numeric', month: 'short', day: 'numeric' }))
         })
       })
+  }
 
-    this._weather.currentForecast()
+  currentForCast(name) {
+    this._weather.currentForecast(name)
       .subscribe(res => {
         this.myData = res;
         if (res["main"]) {
           this.myData = res["main"];
           this.myDataSys = res["sys"];
           this.name = res["name"];
-          
+
           let weatherDatesSys = []
           let jsdate2 = new Date(res["sys"] * 1000)
 
@@ -93,4 +117,7 @@ export class WeatherComponent implements OnInit {
       })
   }
 
+  ngOnInit() {
+    
+  }
 }
