@@ -31,17 +31,17 @@ export class WeatherComponent implements OnInit {
     { id: 13, name: 'City and Borough of Birmingham' },
     { id: 14, name: 'Edgbaston' }
   ];
-  
+
 
   constructor(private _weather: WeatherService) { }
 
-  showWeather(city: string) {
-    this.dailyForCast(city)
-    this.currentForCast(city);
+  public showWeather(city: string) {
+    this.dailyForcast(city)
+    this.currentForcast(city);
   }
 
-  dailyForCast(name) {
-    this._weather.dailyForecast(name)
+  public dailyForcast(name) {
+    this._weather.dailyWeather(name)
       .subscribe(res => {
         let temp_max = res['list'].map(res => res.main.temp_max);
         let temp_min = res['list'].map(res => res.main.temp_min);
@@ -49,6 +49,7 @@ export class WeatherComponent implements OnInit {
         this.cityName = res['city'].name;
 
         let weatherDates = []
+
 
         alldates.forEach((res) => {
           this.chart = new Chart('canvas', {
@@ -88,8 +89,9 @@ export class WeatherComponent implements OnInit {
       })
   }
 
-  currentForCast(name) {
-    this._weather.currentForecast(name)
+  public currentForcast(name) {
+
+    this._weather.currentWeather(name)
       .subscribe(res => {
         this.myData = res;
         if (res["main"]) {
@@ -118,6 +120,6 @@ export class WeatherComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 }

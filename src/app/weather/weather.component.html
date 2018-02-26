@@ -8,7 +8,7 @@
     </div>
     <div class="col-sm-4 col-sm-offset-4">
       <select id="Id" class="form-control" [(ngModel)]="list.name" (change)="showWeather(list.name);">  
-        <option *ngFor="let k of list" [ngValue]="k.name">{{k.name}}</option>
+        <option *ngFor="let lst of list" [ngValue]="lst.name">{{lst.name}}</option>
    </select>
    <p class="pagyt {{list.name? 'hide':''}}" style=" font-size: 14px;position: absolute;top: 7px;color: #777;left: 26px;">
      Select The City
