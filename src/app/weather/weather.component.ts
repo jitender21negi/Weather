@@ -3,18 +3,18 @@ import { WeatherService } from '../weather.service';
 import { Chart } from 'chart.js';
 
 @Component({
-  selector: "[app-weather],[app-drop-down]",
+  selector: "app-weather",
   templateUrl: './weather.component.html',
   styleUrls: ['./weather.component.css']
 })
 export class WeatherComponent implements OnInit {
   chart = [];
-  myData: any = [];
-  myDataSys: any = [];
-  myDataSysSunset: any = [];
+  currentWeather: any = [];
+  citySunrise: any = [];
+  citySunset: any = [];
   name: any;
   cityName: any;
-  list: any = [
+  location: Array<object> = [
     { id: 0, name: 'New York' },
     { id: 1, name: 'Texas' },
     { id: 2, name: 'Highlands County' },
@@ -33,15 +33,25 @@ export class WeatherComponent implements OnInit {
   ];
 
 
-  constructor(private _weather: WeatherService) { }
-
-  public showWeather(city: string) {
-    this.dailyForcast(city)
-    this.currentForcast(city);
+  constructor(public _weather: WeatherService) { }
+  ngOnInit() {
   }
 
-  public dailyForcast(name) {
-    this._weather.dailyWeather(name)
+  public showWeather(city: string) {
+    var result = this.location.filter(function (obj: any) {
+      return obj.name === city;
+    })[0];
+    if (typeof result !== "undefined") {
+      this.dailyForcast(city)
+      this.currentForcast(city);
+    }
+    else {
+      console.log("please enter correct location");
+    }
+  }
+
+  public dailyForcast(city) {
+    this._weather.dailyWeather(city)
       .subscribe(res => {
         let temp_max = res['list'].map(res => res.main.temp_max);
         let temp_min = res['list'].map(res => res.main.temp_min);
@@ -49,7 +59,6 @@ export class WeatherComponent implements OnInit {
         this.cityName = res['city'].name;
 
         let weatherDates = []
-
 
         alldates.forEach((res) => {
           this.chart = new Chart('canvas', {
@@ -89,14 +98,14 @@ export class WeatherComponent implements OnInit {
       })
   }
 
-  public currentForcast(name) {
+  public currentForcast(city) {
 
-    this._weather.currentWeather(name)
+    this._weather.currentWeather(city)
       .subscribe(res => {
-        this.myData = res;
+        this.currentWeather = res;
         if (res["main"]) {
-          this.myData = res["main"];
-          this.myDataSys = res["sys"];
+          this.currentWeather = res["main"];
+          this.citySunrise = res["sys"];
           this.name = res["name"];
 
           let weatherDatesSys = []
@@ -107,19 +116,15 @@ export class WeatherComponent implements OnInit {
           let minutes = "0" + date.getMinutes();
           let seconds = "0" + date.getSeconds();
           let formattedTimeSunrise = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-          this.myDataSys = formattedTimeSunrise;
+          this.citySunrise = formattedTimeSunrise;
 
           let dateSunset = new Date(res["sys"].sunset * 1000);
           let hoursSunset = dateSunset.getHours();
           let minutesSunset = "0" + dateSunset.getMinutes();
           let secondsSunset = "0" + dateSunset.getSeconds();
           let formattedTimeSunset = hoursSunset + ':' + minutesSunset.substr(-2) + ':' + secondsSunset.substr(-2);
-          this.myDataSysSunset = formattedTimeSunset;
+          this.citySunset = formattedTimeSunset;
         }
       })
-  }
-
-  ngOnInit() {
-
   }
 }
