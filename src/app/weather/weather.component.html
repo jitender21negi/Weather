@@ -7,30 +7,32 @@
       </h1>
     </div>
     <div class="col-sm-4 col-sm-offset-4">
-      <select id="Id" class="form-control" [(ngModel)]="location.name" (change)="showWeather(location.name);">  
+      <select id="Id" class="form-control" [(ngModel)]="location.name" (change)="showWeather(location.name);">
         <option *ngFor="let lst of location" [ngValue]="lst.name">{{lst.name}}</option>
-   </select>
-   <p class="pagyt {{location.name? 'hide':''}}" style=" font-size: 14px;position: absolute;top: 7px;color: #777;left: 26px;">
-     Select The City
-  </p>
+      </select>
+      <p class="pagyt {{location.name? 'hide':''}}"
+         style=" font-size: 14px;position: absolute;top: 7px;color: #777;left: 26px;">
+        Select The City
+      </p>
     </div>
   </div>
 </div>
 <div class="flude-container" class="pagyt {{location.name? 'show':''}}" style="display:none">
-<div class="container">
-  <div class="col-sm-4">
-    <h4 style="font-weight: bold;padding-top: 16px; color:#00BFFF">Weather in City, {{name}}</h4>
+  <div class="container">
+    <div class="col-sm-4">
+      <h4 style="font-weight: bold;padding-top: 16px; color:#00BFFF">Weather in City, {{name}}</h4>
+    </div>
+    <div class="col-sm-8 text-center">
+      <h3 style="color:#00BFFF">Weather and forecasts in City, {{cityName}}</h3>
+    </div>
   </div>
-  <div class="col-sm-8 text-center">
-    <h3 style="color:#00BFFF">Weather and forecasts in City, {{cityName}}</h3>
-  </div>
-</div>
-<div class="container">
-  <div class="col-sm-4">
-    <h2 style="margin: 0px;color:#067DA5">
-        <i class="fa fa-cloud" style="font-size:30px;color:#067DA5;"></i> <strong>{{currentWeather.temp-273.15 | number : '1.2-2'}}°C</strong></h2>
-    <table class="table table-bordered">
-      <tbody>
+  <div class="container">
+    <div class="col-sm-4">
+      <h2 style="margin: 0px;color:#067DA5">
+        <i class="fa fa-cloud" style="font-size:30px;color:#067DA5;"></i> <strong>{{currentWeather.temp-273.15 | number
+        : '1.2-2'}}°C</strong></h2>
+      <table class="table table-bordered">
+        <tbody>
         <tr>
           <td>Min Temp</td>
           <td>{{currentWeather.temp_min-273.15 | number : '1.2-2'}}°C</td>
@@ -56,13 +58,13 @@
           <td>Sunset</td>
           <td>{{citySunset}}</td>
         </tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="col-sm-8">
-    <div *ngIf="chart">
-      <canvas id="canvas">{{ chart }}</canvas>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-8">
+      <div *ngIf="chart">
+        <canvas id="canvas">{{ chart }}</canvas>
+      </div>
     </div>
   </div>
-</div>
 </div>
