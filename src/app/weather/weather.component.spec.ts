@@ -1,14 +1,14 @@
-import { ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {ComponentFixture, TestBed, getTestBed} from '@angular/core/testing';
+import {FormsModule} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 import 'rxjs/add/observable/from';
 import 'rxjs/add/observable/of';
-import { Observable } from 'rxjs/Observable';
+import {Observable} from 'rxjs/Observable';
 
-import { WeatherComponent } from './weather.component';
-import { WeatherService } from '../weather.service';
+import {WeatherComponent} from './weather.component';
+import {WeatherService} from '../weather.service';
 
 describe('WeatherComponent', () => {
   let component: WeatherComponent;
@@ -20,14 +20,14 @@ describe('WeatherComponent', () => {
   beforeEach(() => {
 
     dailyWeatherObj = {
-      list: [{ main: { temp_max: 100, temp_min: 20 }, dt: 102212 }],
-      city: [{ "name": "New York" }]
+      list: [{main: {temp_max: 100, temp_min: 20}, dt: 102212}],
+      city: [{name: 'New York'}]
     };
 
     currentWeatherObj = {
-      main: [{ main: { temp_max: 100, temp_min: 20 }, dt: 102212 }],
-      sys: [{ "name": "New York" }],
-      name: [{ "name": "New York" }]
+      main: [{main: {temp_max: 100, temp_min: 20}, dt: 102212}],
+      sys: [{name: 'New York'}],
+      name: [{name: 'New York'}]
     };
 
     TestBed.configureTestingModule({
@@ -52,7 +52,7 @@ describe('WeatherComponent', () => {
     spyOn(weatherService, 'currentWeather').and.callFake(() => {
       return Observable.from([currentWeatherObj]);
     });
-    spyOn(console,'log');
+    spyOn(console, 'log');
   });
 
   afterEach(() => {
@@ -92,7 +92,7 @@ describe('WeatherComponent', () => {
       spyOn(component, 'dailyForcast');
       spyOn(component, 'currentForcast');
 
-      component.showWeather('New York1');
+      component.showWeather('');
 
       expect(console.log).toHaveBeenCalled;
     });
