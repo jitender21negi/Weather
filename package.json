@@ -1,12 +1,12 @@
 {
-  "name": "weather",
+  "name": "weatherApi",
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "jitender",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
-    "test": "ng test",
+    "test": "ng test --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
